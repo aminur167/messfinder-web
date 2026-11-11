@@ -1,0 +1,79 @@
+/* Small custom styles. Almost everything else is Tailwind classes in the HTML. */
+
+/* text is a little smaller on laptops (every Tailwind size follows it); phones keep 16px */
+@media (min-width: 768px) {
+    html { font-size: 14px; }
+}
+
+h1, h2, h3 {
+    font-family: 'Outfit', 'Inter', 'Hind Siliguri', system-ui, sans-serif;
+    letter-spacing: -0.01em;
+}
+
+body {
+    background-color: #F5F4F8;
+    color: #322D27;
+    font-family: 'Inter', 'Hind Siliguri', system-ui, sans-serif;
+}
+
+/* the focus ring is ochre everywhere */
+:focus-visible {
+    outline: 2px solid #BF8440;
+    outline-offset: 2px;
+}
+
+/* the grey block shown while data is loading (no shimmer, as planned) */
+.skeleton {
+    background-color: #e9e7ee;
+    border-radius: 0.5rem;
+}
+
+/* a small spinner for buttons */
+.spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 9999px;
+    animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* the bottom tab bar of phones must not hide the end of the page */
+body.has-tab-bar {
+    padding-bottom: 4.5rem;
+}
+@media (min-width: 768px) {
+    body.has-tab-bar { padding-bottom: 0; }
+}
+
+/* The filter panel of the Browse page: on phones it comes up from the bottom */
+@media (max-width: 1023px) {
+    #filters.open {
+        display: block;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 50;
+        max-height: 85vh;
+        overflow-y: auto;
+        border-radius: 1rem 1rem 0 0;
+    }
+}
+
+/* while the drawer is open the page behind it does not scroll */
+body.no-scroll {
+    overflow: hidden;
+}
+
+/* a row that scrolls sideways (the section tabs) without showing the scroll bar */
+.hide-scrollbar {
+    scrollbar-width: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
