@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Mess Finder</title>
+
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="../js/tailwind-config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Inter:wght@400;500;600&family=Outfit:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <!-- Auth shell: a brown side panel (laptops only) and the form -->
+    <div class="lg:grid lg:min-h-screen lg:grid-cols-2">
+        <aside class="hidden flex-col justify-between bg-espresso p-12 text-white lg:flex">
+            <a href="../index.html" class="flex items-center gap-2 text-xl font-semibold">
+                <i class="fa-solid fa-house-chimney-window text-ochre"></i> Mess Finder
+            </a>
+            <div>
+                <h2 class="text-3xl font-semibold leading-snug">Find a mess. Or fill your free seats.</h2>
+                <p class="mt-3 max-w-md text-white/70">Students look for a seat, managers advertise theirs. Make an account to start.</p>
+                <ul class="mt-8 space-y-4 text-sm">
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-magnifying-glass w-5 text-center text-ochre"></i>Search messes by area, rent and your university</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-comments w-5 text-center text-ochre"></i>Chat with the manager before you decide</li>
+                    <li class="flex items-center gap-3"><i class="fa-solid fa-receipt w-5 text-center text-ochre"></i>See your rent and payments in one place</li>
+                </ul>
+            </div>
+            <p class="text-xs text-white/50">Mess Finder, a university project.</p>
+        </aside>
+
+    <main id="page" class="mx-auto flex min-h-screen w-full max-w-lg flex-col justify-center px-4 py-8">
+        <a href="../index.html" class="mb-6 flex items-center justify-center gap-2 text-2xl font-semibold lg:hidden">
+            <i class="fa-solid fa-house-chimney-window text-ochre"></i> Mess Finder
+        </a>
+
+        <div class="rounded-xl border border-line bg-white p-6 shadow-sm">
+            <h1 class="text-xl font-semibold">Create an account</h1>
+            <p class="mt-1 text-sm text-ink-soft">Students look for a mess. Managers advertise seats and manage members.</p>
+
+            <!-- Student or Manager -->
+            <div class="mt-5 grid grid-cols-2 gap-1 rounded-lg bg-page p-1" role="tablist">
+                <button type="button" id="tab-student" data-role="student" role="tab"
+                    class="h-10 rounded-md text-sm font-medium">
+                    <i class="fa-solid fa-graduation-cap mr-1"></i> I am a student
+                </button>
+                <button type="button" id="tab-manager" data-role="manager" role="tab"
+                    class="h-10 rounded-md text-sm font-medium">
+                    <i class="fa-solid fa-key mr-1"></i> I am a manager
+                </button>
+            </div>
+
+            <div id="form-message" class="mt-4 hidden rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800" role="alert"></div>
+
+            <form id="register-form" class="mt-5 space-y-4" novalidate>
+                <!-- the fields of both roles -->
+                <div>
+                    <label for="full_name" class="mb-1 block text-sm font-medium">Full name</label>
+                    <input id="full_name" name="full_name" type="text" autocomplete="name" placeholder="Your full name"
+                        class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                    <p data-error-for="full_name" class="mt-1 text-xs text-red-600"></p>
+                </div>
+
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <div>
+                        <label for="email" class="mb-1 block text-sm font-medium">Email</label>
+                        <input id="email" name="email" type="email" autocomplete="email" placeholder="you@example.com"
+                            class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                        <p data-error-for="email" class="mt-1 text-xs text-red-600"></p>
+                    </div>
+                    <div>
+                        <label for="phone" class="mb-1 block text-sm font-medium">Phone</label>
+                        <input id="phone" name="phone" type="tel" autocomplete="tel" placeholder="01712345678"
+                            class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                        <p data-error-for="phone" class="mt-1 text-xs text-red-600"></p>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="password" class="mb-1 block text-sm font-medium">Password</label>
+                    <div class="relative">
+                        <input id="password" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters"
+                            class="h-11 w-full rounded-lg border border-line bg-white px-3 pr-11 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                        <button type="button" id="toggle-password" class="absolute right-1 top-1 h-9 w-9 rounded-lg text-ink-soft hover:bg-page" aria-label="Show password">
+                            <i class="fa-regular fa-eye"></i>
+                        </button>
+                    </div>
+                    <p class="mt-1 text-xs text-ink-soft">8 to 72 characters, with at least one letter and one number.</p>
+                    <p data-error-for="password" class="mt-1 text-xs text-red-600"></p>
+                </div>
+
+                <!-- only for students -->
+                <div id="student-fields" class="space-y-4">
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <label for="university_name" class="mb-1 block text-sm font-medium">University</label>
+                            <input id="university_name" name="university_name" type="text" maxlength="150" autocomplete="organization" placeholder="Your university name"
+                                class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                            <p data-error-for="university_name" class="mt-1 text-xs text-red-600"></p>
+                        </div>
+                        <div>
+                            <label for="gender" class="mb-1 block text-sm font-medium">Gender</label>
+                            <select id="gender" name="gender"
+                                class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                                <option value="">Select</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            <p class="mt-1 text-xs text-ink-soft">Boys and girls messes are separate, so this is needed.</p>
+                            <p data-error-for="gender" class="mt-1 text-xs text-red-600"></p>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="area_name" class="mb-1 block text-sm font-medium">Area</label>
+                        <input id="area_name" name="area_name" type="text" maxlength="80" autocomplete="address-level3" placeholder="Area near your university"
+                            class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                        <p data-error-for="area_name" class="mt-1 text-xs text-red-600"></p>
+                    </div>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <label for="student_roll" class="mb-1 block text-sm font-medium">Roll <span class="font-normal text-ink-soft">(optional)</span></label>
+                            <input id="student_roll" name="student_roll" type="text" placeholder="2105031"
+                                class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                            <p data-error-for="student_roll" class="mt-1 text-xs text-red-600"></p>
+                        </div>
+                        <div>
+                            <label for="department" class="mb-1 block text-sm font-medium">Department <span class="font-normal text-ink-soft">(optional)</span></label>
+                            <input id="department" name="department" type="text" placeholder="CSE"
+                                class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                            <p data-error-for="department" class="mt-1 text-xs text-red-600"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- only for managers -->
+                <div id="manager-fields" class="hidden space-y-4">
+                    <div>
+                        <label for="nid_no" class="mb-1 block text-sm font-medium">NID number</label>
+                        <input id="nid_no" name="nid_no" type="text" inputmode="numeric" placeholder="10 to 17 digits"
+                            class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                        <p class="mt-1 text-xs text-ink-soft">The admin checks it before your mess is shown to students.</p>
+                        <p data-error-for="nid_no" class="mt-1 text-xs text-red-600"></p>
+                    </div>
+                    <div>
+                        <label for="address" class="mb-1 block text-sm font-medium">Address <span class="font-normal text-ink-soft">(optional)</span></label>
+                        <input id="address" name="address" type="text" placeholder="House, road, area"
+                            class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                        <p data-error-for="address" class="mt-1 text-xs text-red-600"></p>
+                    </div>
+                </div>
+
+                <button type="submit" id="register-button"
+                    class="h-11 w-full rounded-lg bg-espresso text-sm font-medium text-white hover:bg-espresso-hover disabled:opacity-70">
+                    Create account
+                </button>
+            </form>
+
+            <p class="mt-5 text-center text-sm text-ink-soft">
+                Already have an account? <a id="login-link" href="login.html" class="font-medium text-link hover:underline">Login</a>
+            </p>
+        </div>
+    </main>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/register.js"></script>
+</body>
+</html>
