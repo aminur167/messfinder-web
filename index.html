@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mess Finder</title>
+
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="js/tailwind-config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Inter:wght@400;500;600&family=Outfit:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="page">
+
+        <!-- Hero: a heading and the search bar -->
+        <section class="border-b border-line bg-white">
+            <div class="mx-auto max-w-4xl px-4 py-12 text-center sm:py-16">
+                <h1 class="text-3xl font-semibold leading-tight sm:text-4xl">Find a mess near your university</h1>
+                <p class="mt-3 text-ink-soft">Search verified messes, chat with the manager and move in.</p>
+
+                <form id="search-form" class="mt-8 grid gap-3 rounded-xl border border-line bg-page p-3 text-left sm:grid-cols-2 lg:grid-cols-[1fr_1fr_10rem_auto]">
+                    <div>
+                        <label for="search-university" class="mb-1 block text-xs font-medium text-ink-soft">University</label>
+                        <select id="search-university" class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                            <option value="">Any university</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="search-area" class="mb-1 block text-xs font-medium text-ink-soft">Area</label>
+                        <select id="search-area" class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                            <option value="">Any area</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="search-rent" class="mb-1 block text-xs font-medium text-ink-soft">Max rent (৳)</label>
+                        <input id="search-rent" type="number" min="0" step="100" placeholder="e.g. 4000"
+                            class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                    </div>
+                    <div class="flex items-end sm:col-span-2 lg:col-span-1">
+                        <button type="submit" class="h-11 w-full rounded-lg bg-espresso px-6 text-sm font-medium text-white hover:bg-espresso-hover">
+                            <i class="fa-solid fa-magnifying-glass mr-1"></i> Search
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section class="mx-auto max-w-[88rem] px-4 py-10">
+            <h2 class="text-xl font-semibold">How it works</h2>
+            <div class="mt-4 grid gap-4 md:grid-cols-3">
+                <div class="rounded-xl border border-line bg-white p-5">
+                    <span class="flex h-10 w-10 items-center justify-center rounded-full bg-ochre-soft text-lg text-ochre"><i class="fa-solid fa-magnifying-glass"></i></span>
+                    <h3 class="mt-3 font-semibold">1. Search</h3>
+                    <p class="mt-1 text-sm text-ink-soft">Filter by area, rent, facilities and distance from your university. See free seats and real reviews.</p>
+                </div>
+                <div class="rounded-xl border border-line bg-white p-5">
+                    <span class="flex h-10 w-10 items-center justify-center rounded-full bg-ochre-soft text-lg text-ochre"><i class="fa-solid fa-comments"></i></span>
+                    <h3 class="mt-3 font-semibold">2. Chat</h3>
+                    <p class="mt-1 text-sm text-ink-soft">Talk to the manager, call or send a WhatsApp message, and visit the mess before you decide.</p>
+                </div>
+                <div class="rounded-xl border border-line bg-white p-5">
+                    <span class="flex h-10 w-10 items-center justify-center rounded-full bg-ochre-soft text-lg text-ochre"><i class="fa-solid fa-key"></i></span>
+                    <h3 class="mt-3 font-semibold">3. Move in</h3>
+                    <p class="mt-1 text-sm text-ink-soft">The manager gives you a seat. Your rent and payments are then visible in your account.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest seat posts -->
+        <section class="mx-auto max-w-[88rem] px-4 pb-10">
+            <div class="flex items-center justify-between gap-3">
+                <h2 class="text-xl font-semibold">Latest seat posts</h2>
+                <a href="pages/newsfeed.html" class="text-sm font-medium text-link hover:underline">See all posts <i class="fa-solid fa-arrow-right text-xs"></i></a>
+            </div>
+            <div id="latest-posts" class="mt-4 grid gap-4 md:grid-cols-3"></div>
+        </section>
+
+        <!-- Top-rated messes -->
+        <section class="mx-auto max-w-[88rem] px-4 pb-12">
+            <div class="flex items-center justify-between gap-3">
+                <h2 class="text-xl font-semibold">Top-rated messes</h2>
+                <a href="pages/browse.html?sort=rating" class="text-sm font-medium text-link hover:underline">Browse all <i class="fa-solid fa-arrow-right text-xs"></i></a>
+            </div>
+            <div id="top-messes" class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4"></div>
+        </section>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/components.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/mess-card.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>
