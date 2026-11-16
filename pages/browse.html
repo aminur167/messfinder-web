@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse messes | Mess Finder</title>
+
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="../js/tailwind-config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Inter:wght@400;500;600&family=Outfit:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="page">
+
+        <!-- Title, mobile Filters button and Sort -->
+        <div class="flex flex-wrap items-center justify-between gap-3">
+            <h1 id="result-title" class="text-xl font-semibold">Browse messes</h1>
+            <div class="flex items-center gap-2">
+                <button type="button" id="open-filters" class="flex h-10 items-center gap-2 rounded-lg border border-line bg-white px-3 text-sm font-medium hover:bg-page lg:hidden">
+                    <i class="fa-solid fa-sliders"></i> Filters <span id="filter-count" class="hidden rounded-full bg-ochre px-1.5 text-xs font-semibold text-espresso"></span>
+                </button>
+                <label for="sort" class="sr-only">Sort</label>
+                <select id="sort" class="h-10 rounded-lg border border-line bg-white px-3 text-sm focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                    <option value="newest">Sort: Newest</option>
+                    <option value="rent_low">Sort: Rent, low to high</option>
+                    <option value="rent_high">Sort: Rent, high to low</option>
+                    <option value="rating">Sort: Best rated</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="mt-4 lg:grid lg:grid-cols-[17rem_1fr] lg:items-start lg:gap-6">
+
+            <div id="filter-backdrop" class="fixed inset-0 z-40 hidden bg-espresso/60 lg:hidden"></div>
+
+            <!-- Filters (a panel from the bottom on phones) -->
+            <aside id="filters" class="hidden rounded-xl border border-line bg-white p-4 lg:sticky lg:top-20 lg:block">
+                <div class="mb-3 flex items-center justify-between lg:hidden">
+                    <h2 class="text-base font-semibold">Filters</h2>
+                    <button type="button" id="close-filters" class="h-8 w-8 rounded-lg text-ink-soft hover:bg-page" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+
+                <form id="filter-form" class="space-y-5 text-sm">
+                    <div class="flex items-center justify-between">
+                        <span class="font-semibold">Filter</span>
+                        <button type="button" id="clear-filters" class="text-sm font-medium text-link hover:underline">Clear all</button>
+                    </div>
+
+                    <div>
+                        <label for="university_id" class="mb-1 block font-medium">University</label>
+                        <select id="university_id" name="university_id" class="h-10 w-full rounded-lg border border-line bg-white px-2 focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                            <option value="">Any university</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="area_id" class="mb-1 block font-medium">Area</label>
+                        <select id="area_id" name="area_id" class="h-10 w-full rounded-lg border border-line bg-white px-2 focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                            <option value="">Any area</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <span class="mb-1 block font-medium">Type</span>
+                        <div class="flex gap-4">
+                            <label class="flex items-center gap-1.5"><input type="radio" name="type" value="" checked class="accent-espresso"> Any</label>
+                            <label class="flex items-center gap-1.5"><input type="radio" name="type" value="boys" class="accent-espresso"> Boys</label>
+                            <label class="flex items-center gap-1.5"><input type="radio" name="type" value="girls" class="accent-espresso"> Girls</label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="mb-1 block font-medium">Rent per month (৳)</span>
+                        <div class="flex items-center gap-2">
+                            <input type="number" name="min_rent" min="0" step="100" placeholder="Min" aria-label="Minimum rent"
+                                class="h-10 w-full rounded-lg border border-line bg-white px-2 placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                            <span class="text-ink-soft">to</span>
+                            <input type="number" name="max_rent" min="0" step="100" placeholder="Max" aria-label="Maximum rent"
+                                class="h-10 w-full rounded-lg border border-line bg-white px-2 placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                        </div>
+                    </div>
+
+                    <div>
+                        <span class="mb-1 block font-medium">Facilities</span>
+                        <div id="facility-list" class="grid grid-cols-1 gap-1.5 sm:grid-cols-2 lg:grid-cols-1">
+                            <p class="text-ink-soft">Loading...</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="min_rating" class="mb-1 block font-medium">Minimum rating</label>
+                        <select id="min_rating" name="min_rating" class="h-10 w-full rounded-lg border border-line bg-white px-2 focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                            <option value="">Any rating</option>
+                            <option value="3">3 stars and more</option>
+                            <option value="4">4 stars and more</option>
+                            <option value="4.5">4.5 stars and more</option>
+                        </select>
+                    </div>
+
+                    <div class="space-y-1.5">
+                        <label class="flex items-center gap-2"><input type="checkbox" name="has_meal" value="1" class="accent-espresso"> Meal available</label>
+                        <label class="flex items-center gap-2"><input type="checkbox" name="utility_included" value="1" class="accent-espresso"> Utility bills included</label>
+                        <label class="flex items-center gap-2"><input type="checkbox" name="only_free" value="1" class="accent-espresso"> Only messes with free seats</label>
+                    </div>
+
+                    <!-- Nearby: messes within X km of a university -->
+                    <div class="rounded-lg bg-page p-3">
+                        <span class="mb-2 block font-medium"><i class="fa-solid fa-location-dot mr-1 text-ochre"></i>Nearby</span>
+                        <select id="near_university_id" name="near_university_id" aria-label="Distance from a university"
+                            class="h-10 w-full rounded-lg border border-line bg-white px-2 focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                            <option value="">Not used</option>
+                        </select>
+                        <select id="km" name="km" aria-label="Distance in km"
+                            class="mt-2 h-10 w-full rounded-lg border border-line bg-white px-2 focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40 disabled:text-mute">
+                            <option value="1">Within 1 km</option>
+                            <option value="2">Within 2 km</option>
+                            <option value="3" selected>Within 3 km</option>
+                            <option value="5">Within 5 km</option>
+                            <option value="10">Within 10 km</option>
+                        </select>
+                    </div>
+                </form>
+
+                <!-- on phones this button stays at the bottom of the panel -->
+                <div class="sticky bottom-0 -mx-4 -mb-4 mt-4 border-t border-line bg-white p-3 lg:hidden">
+                    <button type="button" id="apply-filters" class="h-11 w-full rounded-lg bg-espresso text-sm font-medium text-white hover:bg-espresso-hover">Show results</button>
+                </div>
+            </aside>
+
+            <!-- Results -->
+            <section class="mt-4 min-w-0 lg:mt-0">
+                <div class="relative mb-4">
+                    <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-3.5 text-mute"></i>
+                    <label for="search-q" class="sr-only">Search by name or address</label>
+                    <input id="search-q" type="search" placeholder="Search by name or address"
+                        class="h-11 w-full rounded-lg border border-line bg-white pl-9 pr-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                </div>
+                <div id="results" class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3"></div>
+                <div id="pagination" class="mt-6"></div>
+            </section>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/mess-card.js"></script>
+    <script src="../js/browse.js"></script>
+</body>
+</html>
