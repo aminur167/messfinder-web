@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat | Mess Finder</title>
+
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="../js/tailwind-config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Inter:wght@400;500;600&family=Outfit:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="page">
+        <h1 class="sr-only">Chat</h1>
+
+        <!-- shown when the live connection is lost -->
+        <div id="offline-note" class="mb-3 hidden rounded-lg border border-amber-200 bg-amber-50 px-4 py-2 text-sm text-amber-800">
+            <i class="fa-solid fa-plug-circle-exclamation mr-2"></i>Live messages are off. You can still send, but new messages may need a page reload.
+        </div>
+
+        <!-- two panels: the list of chats, and the open chat. On a phone only one is shown at a time. -->
+        <div id="chat-app" class="flex h-[calc(100dvh-12rem)] min-h-[26rem] overflow-hidden rounded-xl border border-line bg-white md:h-[calc(100vh-9rem)]">
+
+            <!-- the list of chats -->
+            <aside id="list-panel" class="flex w-full shrink-0 flex-col md:flex md:w-80 md:border-r md:border-line">
+                <div class="border-b border-line p-3">
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass pointer-events-none absolute left-3 top-3 text-mute"></i>
+                        <label for="chat-search" class="sr-only">Search chats</label>
+                        <input id="chat-search" type="search" placeholder="Search chats"
+                            class="h-10 w-full rounded-lg border border-line bg-white pl-9 pr-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                    </div>
+                </div>
+                <div id="chat-list" class="flex-1 overflow-y-auto"></div>
+            </aside>
+
+            <!-- the open chat -->
+            <section id="thread-panel" class="hidden min-w-0 flex-1 flex-col md:flex">
+                <div id="thread-empty" class="flex flex-1 flex-col items-center justify-center px-6 text-center">
+                    <i class="fa-regular fa-comments text-4xl text-ochre"></i>
+                    <h2 class="mt-3 text-base font-semibold">Select a chat</h2>
+                    <p class="mt-1 text-sm text-ink-soft">Pick a chat from the list to read and write messages.</p>
+                </div>
+
+                <div id="thread" class="hidden min-h-0 flex-1 flex-col">
+                    <header id="thread-header" class="flex items-center gap-3 border-b border-line px-3 py-2.5"></header>
+                    <div id="messages" class="flex-1 space-y-1 overflow-y-auto bg-page/60 px-3 py-3"></div>
+                    <form id="send-form" class="flex items-end gap-2 border-t border-line p-3" novalidate>
+                        <label for="message-input" class="sr-only">Type a message</label>
+                        <textarea id="message-input" rows="1" maxlength="1000" placeholder="Type a message..."
+                            class="max-h-28 min-h-10 flex-1 resize-none rounded-lg border border-line bg-white px-3 py-2 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40"></textarea>
+                        <button type="submit" id="send-button" class="h-10 shrink-0 rounded-lg bg-espresso px-4 text-sm font-medium text-white hover:bg-espresso-hover disabled:opacity-70">
+                            <i class="fa-solid fa-paper-plane sm:mr-1"></i><span class="hidden sm:inline">Send</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script src="../js/config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/chat.js"></script>
+</body>
+</html>
