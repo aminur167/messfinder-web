@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints | Mess Finder</title>
+
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="../js/tailwind-config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Inter:wght@400;500;600&family=Outfit:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="page">
+        <div class="mx-auto max-w-[88rem] space-y-4">
+            <h1 class="text-xl font-semibold">Complaints</h1>
+
+            <div class="grid gap-6 lg:grid-cols-5 lg:items-start">
+            <!-- the form (its "about" part depends on the role, filled by js/complaints.js) -->
+            <section class="rounded-xl border border-line bg-white p-5 lg:col-span-2">
+                <h2 class="font-semibold">New complaint</h2>
+                <p class="mt-1 text-sm text-ink-soft">Tell the admin about a problem. The admin reads every complaint and writes back here.</p>
+
+                <form id="complaint-form" class="mt-4 space-y-4" novalidate>
+                    <div>
+                        <label for="subject" class="mb-1 block text-sm font-medium">Subject</label>
+                        <input id="subject" name="subject" type="text" maxlength="150" placeholder="For example: The water is cut every night"
+                            class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40">
+                        <p data-error-for="subject" class="mt-1 text-xs text-red-600"></p>
+                    </div>
+
+                    <div>
+                        <label for="description" class="mb-1 block text-sm font-medium">What happened?</label>
+                        <textarea id="description" name="description" rows="4" maxlength="2000" placeholder="Write what happened, when, and who was there"
+                            class="w-full rounded-lg border border-line bg-white px-3 py-2 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40"></textarea>
+                        <p data-error-for="description" class="mt-1 text-xs text-red-600"></p>
+                    </div>
+
+                    <div id="about-box"></div>
+
+                    <p id="form-message" class="hidden text-sm text-red-700"></p>
+                    <div class="flex justify-end">
+                        <button type="submit" class="h-10 rounded-lg bg-espresso px-5 text-sm font-medium text-white hover:bg-espresso-hover disabled:opacity-70">Send complaint</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="lg:col-span-3">
+                <h2 class="mb-3 font-semibold">My complaints</h2>
+                <div id="list" class="space-y-3"></div>
+            </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/config.js"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/api.js"></script>
+    <script src="../js/components.js"></script>
+    <script src="../js/layout.js"></script>
+    <script src="../js/complaints.js"></script>
+</body>
+</html>
