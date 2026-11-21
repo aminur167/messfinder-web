@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mess setup | Mess Finder</title>
+
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="../../js/tailwind-config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Inter:wght@400;500;600&family=Outfit:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <div id="page">
+        <div class="mx-auto max-w-[88rem] space-y-4">
+            <!-- Pending verification / Verified / Suspended (filled by js/manager-mess-setup.js) -->
+            <div id="status-banner"></div>
+
+            <!-- the two tabs -->
+            <div class="hide-scrollbar flex gap-1 overflow-x-auto border-b border-line" role="tablist">
+                <button type="button" data-tab="info" role="tab" class="h-11 shrink-0 border-b-2 px-4 text-sm font-medium">Mess info</button>
+                <button type="button" data-tab="rooms" role="tab" class="h-11 shrink-0 border-b-2 px-4 text-sm font-medium">Rooms and seats</button>
+            </div>
+
+            <section id="tab-info" role="tabpanel"></section>
+            <section id="tab-rooms" role="tabpanel" class="hidden"></section>
+        </div>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/components.js"></script>
+    <script src="../../js/layout.js"></script>
+    <script src="../../js/manager-mess-setup.js"></script>
+</body>
+</html>
