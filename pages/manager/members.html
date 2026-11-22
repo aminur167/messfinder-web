@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members | Mess Finder</title>
+
+    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+    <script src="../../js/tailwind-config.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600&family=Inter:wght@400;500;600&family=Outfit:wght@500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+</head>
+<body>
+    <div id="page">
+        <div class="mx-auto max-w-[88rem] space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+                <h2 class="text-lg font-semibold">Members</h2>
+                <button type="button" id="add-member-button" class="inline-flex h-10 items-center gap-2 rounded-lg bg-espresso px-4 text-sm font-medium text-white hover:bg-espresso-hover">
+                    <i class="fa-solid fa-user-plus"></i>Add member
+                </button>
+            </div>
+
+            <!-- the two tabs -->
+            <div class="hide-scrollbar flex gap-1 overflow-x-auto border-b border-line" role="tablist">
+                <button type="button" data-tab="active" role="tab" class="h-11 shrink-0 border-b-2 px-4 text-sm font-medium">Active members</button>
+                <button type="button" data-tab="ex" role="tab" class="h-11 shrink-0 border-b-2 px-4 text-sm font-medium">Ex-members</button>
+            </div>
+
+            <!-- active members: search, chips, table (filled by js/manager-members.js) -->
+            <section id="tab-active" role="tabpanel" class="space-y-3">
+                <div class="flex flex-col gap-3 md:flex-row md:items-center">
+                    <input id="search" type="search" placeholder="Search by name, phone or room" aria-label="Search members"
+                        class="h-11 w-full rounded-lg border border-line bg-white px-3 text-sm placeholder:text-mute focus:border-ochre focus:outline-none focus:ring-2 focus:ring-ochre/40 md:max-w-xs">
+                    <div id="chips" class="hide-scrollbar flex gap-5 overflow-x-auto"></div>
+                </div>
+                <div id="member-list"></div>
+                <div id="member-pages"></div>
+            </section>
+
+            <!-- ex-members -->
+            <section id="tab-ex" role="tabpanel" class="hidden space-y-3">
+                <div id="ex-list"></div>
+                <div id="ex-pages"></div>
+            </section>
+        </div>
+    </div>
+
+    <script src="../../js/config.js"></script>
+    <script src="../../js/auth.js"></script>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/components.js"></script>
+    <script src="../../js/layout.js"></script>
+    <script src="../../js/manager-members.js"></script>
+</body>
+</html>
